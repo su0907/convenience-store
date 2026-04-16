@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    password: jj021204!@
+
+jwt:
+  secret: conveniencestoresecretkey1234567890abcdefghij

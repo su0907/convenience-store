@@ -31,6 +31,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("MANAGER")
+                        .requestMatchers("/api/attendance/clock-in").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers("/api/attendance/clock-out").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers("/api/attendance/my").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers("/api/attendance/{userId}").hasRole("MANAGER")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

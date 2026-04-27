@@ -88,4 +88,11 @@ public class AttendanceService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다."));
     }
+    // 전체 직원 출퇴근 기록 조회 (점장 전용)
+    public List<AttendanceResponse> getAllAttendance() {
+        return attendanceRepository.findAllByOrderByWorkDateDesc()
+                .stream()
+                .map(AttendanceResponse::new)
+                .toList();
+    }
 }

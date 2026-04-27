@@ -12,4 +12,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     List<Attendance> findByUser(User user);
     List<Attendance> findByUserAndWorkDateBetween(User user, LocalDate start, LocalDate end);
     Optional<Attendance> findByUserAndClockOutIsNull(User user);
+    List<Attendance> findAllByOrderByWorkDateDesc();
 }

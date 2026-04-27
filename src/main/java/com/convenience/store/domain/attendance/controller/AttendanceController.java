@@ -44,4 +44,9 @@ public class AttendanceController {
             @PathVariable Long userId) {
         return ResponseEntity.ok(attendanceService.getUserAttendance(userId));
     }
+    // 전체 직원 출퇴근 기록 조회 (점장 전용)
+    @GetMapping("/all")
+    public ResponseEntity<List<AttendanceResponse>> getAllAttendance() {
+        return ResponseEntity.ok(attendanceService.getAllAttendance());
+    }
 }

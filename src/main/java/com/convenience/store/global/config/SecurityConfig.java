@@ -4,6 +4,7 @@ import com.convenience.store.global.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,10 +32,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("MANAGER")
-                        .requestMatchers("/api/attendance/clock-in").hasAnyRole("MANAGER", "STAFF")
-                        .requestMatchers("/api/attendance/clock-out").hasAnyRole("MANAGER", "STAFF")
-                        .requestMatchers("/api/attendance/my").hasAnyRole("MANAGER", "STAFF")
-                        .requestMatchers("/api/attendance/{userId}").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/attendance/clock-in").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers(HttpMethod.POST, "/api/attendance/clock-out").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers(HttpMethod.GET, "/api/attendance/my").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers(HttpMethod.GET, "/api/attendance/**").hasRole("MANAGER")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -41,6 +41,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/schedule/**").hasRole("MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/salary/my").hasAnyRole("MANAGER", "STAFF")
                         .requestMatchers("/api/salary/**").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/handover").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers(HttpMethod.GET, "/api/handover/today").hasAnyRole("MANAGER", "STAFF")
+                        .requestMatchers("/api/handover/**").hasRole("MANAGER")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -20,15 +20,19 @@ public class AttendanceController {
     // 출근
     @PostMapping("/clock-in")
     public ResponseEntity<AttendanceResponse> clockIn(
-            @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(attendanceService.clockIn(userDetails.getUsername()));
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) Double longitude) {
+        return ResponseEntity.ok(attendanceService.clockIn(userDetails.getUsername(), latitude, longitude));
     }
 
     // 퇴근
     @PostMapping("/clock-out")
     public ResponseEntity<AttendanceResponse> clockOut(
-            @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(attendanceService.clockOut(userDetails.getUsername()));
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) Double longitude) {
+        return ResponseEntity.ok(attendanceService.clockOut(userDetails.getUsername(), latitude, longitude));
     }
 
     // 본인 출퇴근 기록 조회
@@ -44,6 +48,7 @@ public class AttendanceController {
             @PathVariable Long userId) {
         return ResponseEntity.ok(attendanceService.getUserAttendance(userId));
     }
+
     // 전체 직원 출퇴근 기록 조회 (점장 전용)
     @GetMapping("/all")
     public ResponseEntity<List<AttendanceResponse>> getAllAttendance() {

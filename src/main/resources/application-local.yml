@@ -4,3 +4,7 @@ spring:
 
 jwt:
   secret: conveniencestoresecretkey1234567890abcdefghij
+
+telegram:
+  bot-token: 8786181109:AAF1k50Gd3PPFBZiq9K3U5aUdy4hONMjurs
+  chat-id: 8322702140
